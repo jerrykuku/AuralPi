@@ -1,0 +1,12 @@
+config BR2_PACKAGE_ROONBRIDGE
+	bool "RoonBridge"
+	depends on BR2_TOOLCHAIN_USES_GLIBC
+	help
+	  Install the official RoonBridge binary package.
+
+config BR2_PACKAGE_ROONBRIDGE_SITE
+	string "RoonBridge download site"
+	depends on BR2_PACKAGE_ROONBRIDGE
+	default "https://download.roonlabs.net/builds"
+	help
+	  Base URL containing RoonBridge_linuxarmv8.tar.bz2.

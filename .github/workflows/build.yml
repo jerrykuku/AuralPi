@@ -1,0 +1,48 @@
+name: build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            bc \
+            bison \
+            build-essential \
+            cpio \
+            file \
+            flex \
+            git \
+            libncurses-dev \
+            libssl-dev \
+            python3 \
+            rsync \
+            unzip \
+            wget
+
+      - name: Configure
+        run: |
+          make -C buildroot-src BR2_EXTERNAL=$PWD/buildroot/external rpi4_usbdac_defconfig
+
+      - name: Build image
+        run: |
+          make -C buildroot-src BR2_EXTERNAL=$PWD/buildroot/external
+
+      - name: Upload images
+        uses: actions/upload-artifact@v4
+        with:
+          name: rpi4-usbdac-images
+          path: buildroot-src/output/images/*

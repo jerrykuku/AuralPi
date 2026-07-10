@@ -1,0 +1,9 @@
+arm_64bit=1
+enable_uart=1
+disable_splash=1
+dtparam=audio=off
+
+# Keep HDMI audio out of the playback path.
+hdmi_ignore_edid_audio=1
+
+dtoverlay=vc4-kms-v3d

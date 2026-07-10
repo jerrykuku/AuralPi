@@ -1,0 +1,2 @@
+source "$BR2_EXTERNAL_RPI4_USBDAC_PATH/package/audioctl/Config.in"
+source "$BR2_EXTERNAL_RPI4_USBDAC_PATH/package/roonbridge/Config.in"

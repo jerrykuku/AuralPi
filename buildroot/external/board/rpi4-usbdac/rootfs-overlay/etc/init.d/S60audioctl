@@ -1,0 +1,25 @@
+#!/bin/sh
+
+DAEMON=/usr/sbin/audioctl
+PIDFILE=/var/run/audioctl.pid
+
+case "$1" in
+  start)
+    start-stop-daemon -S -q -m -p "$PIDFILE" -b -x "$DAEMON"
+    ;;
+  stop)
+    start-stop-daemon -K -q -p "$PIDFILE"
+    ;;
+  restart)
+    "$0" stop
+    sleep 1
+    "$0" start
+    ;;
+  status)
+    test -s "$PIDFILE" && kill -0 "$(cat "$PIDFILE")"
+    ;;
+  *)
+    echo "Usage: $0 {start|stop|restart|status}"
+    exit 1
+    ;;
+esac
