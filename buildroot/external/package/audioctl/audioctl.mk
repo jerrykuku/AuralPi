@@ -10,7 +10,7 @@ AUDIOCTL_SITE_METHOD = local
 AUDIOCTL_LICENSE = MIT
 
 define AUDIOCTL_BUILD_CMDS
-	$(HOST_GO_TARGET_ENV) GOPROXY=off $(HOST_DIR)/bin/go build -trimpath -ldflags "-s -w" -o $(@D)/audioctl .
+	cd $(@D) && $(HOST_GO_TARGET_ENV) GOFLAGS=-mod=mod GOPROXY=off $(HOST_DIR)/bin/go build -trimpath -ldflags "-s -w" -o $(@D)/audioctl .
 endef
 
 define AUDIOCTL_INSTALL_TARGET_CMDS
